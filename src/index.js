@@ -183,10 +183,14 @@ app.post('/copy-sheet', async (req, res) => {
         const sheets = google.sheets({ version: "v4", auth: auth})
 
         // Load the source and destination Google Sheets by their IDs
-        const sourceSheetId = process.env.SOURCE_ID;
-        const destinationSheetId = process.env.DESTINATION_ID;
-        const sourceSheetName = 'ລາຍງານ 3. ຄ່າອາຫານ ແລະ ເດີນທາງ'; // your sheet name
-        const gid = 284768657 //your gid
+        const {
+            sourceSheetId,
+            destinationSheetId,
+            sourceSheetName,
+            gid
+        } = req.body;
+        // const sourceSheetName = 'ລາຍງານ 3. ຄ່າອາຫານ ແລະ ເດີນທາງ'; // your sheet name
+        // const gid = 284768657 //your gid
         
         const copyRequest = {
             spreadsheetId: sourceSheetId,
