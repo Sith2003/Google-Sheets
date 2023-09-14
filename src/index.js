@@ -66,7 +66,8 @@ app.get('/all-files', async (req, res) => {
     try {
         const drive = google.drive({ version: "v3", auth: oauth2Client });
         const { data } = await drive.files.list();
-        res.json({ message: 'Successfully', files: data.files });
+        const response = data.files
+        res.json({ total: response.length, files: response });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -79,7 +80,8 @@ app.get('/folder', async (req, res) => {
         const { data } = await drive.files.list({
             q: `'${folderId}' in parents`, // Filter by the specified folder ID
         });
-        res.json({ message: 'Successfully', files: data.files });
+        const response = data.files
+        res.json({ total: response.length, files: response});
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -92,7 +94,8 @@ app.get('/search', async (req, res) => {
         const { data } = await drive.files.list({
             q: mimeTypeFilter
         });
-        res.json({ message: 'Successfully', files: data.files });
+        const response = data.files
+        res.json({ total: response.length, files: response });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
